@@ -1,8 +1,11 @@
-private final ParentNode root = new ParentNode(250, 250, 7, true);
+public final int NODES_PER_PARENT = 7;
+public final float PARENT_MAX_DEVIATION = TWO_PI / 3;
+
+private final ParentNode root = new ParentNode(500, 500, 10, NODES_PER_PARENT, 0, 0, TWO_PI, true);
 
 public void setup() {
-    size(500, 500);
-    frameRate(10);
+    size(1000, 1000);
+    frameRate(5);
 }
 
 public void draw() {
