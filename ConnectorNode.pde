@@ -10,8 +10,9 @@ public class ConnectorNode implements Node {
     private final int currentDepth;
 
     private Node child = null;
+    private color c;
 
-    public ConnectorNode(float startX, float startY, float direction, float maxDeviation, float length, int nodesLeft, int currentDepth) {
+    public ConnectorNode(float startX, float startY, float direction, float maxDeviation, float length, int nodesLeft, int currentDepth, color c) {
         this.startX = startX;
         this.startY = startY;
         
@@ -25,6 +26,7 @@ public class ConnectorNode implements Node {
         this.length = length;
         this.nodesLeft = nodesLeft;
         this.currentDepth = currentDepth;
+        this.c = c;
     }
 
     public void tick() {
@@ -36,18 +38,24 @@ public class ConnectorNode implements Node {
     }
 
     public void show() {
+        stroke(c);
         line(startX, startY, endX, endY);
         
         if (child != null) {
             child.show();
+            child.setColor(c);
         }
+    }
+
+    public void setColor(color c) {
+        this.c = c;
     }
 
     private void createChild() {
         if (nodesLeft < 1) {
-            child = new ParentNode(endX, endY, 10, NODES_PER_PARENT, currentDepth, direction, PARENT_MAX_DEVIATION);
+            child = new ParentNode(endX, endY, 10, NODES_PER_PARENT, currentDepth, direction, PARENT_MAX_DEVIATION, color(random(255), random(255), random(255)));
         } else {
-            child = new ConnectorNode(endX, endY, direction, maxDeviation, length, nodesLeft - 1, currentDepth);
+            child = new ConnectorNode(endX, endY, direction, maxDeviation, length, nodesLeft - 1, currentDepth, color(random(255), random(255), random(255)));
         }
     }
 }
